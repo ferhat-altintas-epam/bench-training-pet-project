@@ -5,15 +5,15 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+const navigationLinks = [
+  { href: "/recommended", label: "Recommended" },
+  { href: "/categories", label: "Categories" },
+  { href: "/favourites", label: "Favourites" },
+];
+
 export default function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const navigationLinks = [
-    { href: "/recommended", label: "Recommended" },
-    { href: "/categories", label: "Categories" },
-    { href: "/favourites", label: "Favourites" },
-  ];
 
   return (
     <header className="bg-black text-white py-3 px-4 md:px-8">
@@ -81,6 +81,7 @@ export default function Header() {
           <Link
             href="/login"
             className="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors"
+            aria-label="User profile"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -101,25 +102,36 @@ export default function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden flex flex-col gap-1.5 w-9 h-9 items-center justify-center"
-            aria-label="Toggle menu"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
           >
             <span
-              className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+              }`}
             ></span>
             <span
-              className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+                isMobileMenuOpen ? "opacity-0" : ""
+              }`}
             ></span>
             <span
-              className={`block w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+              className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
             ></span>
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden mt-4 pb-2 border-t border-gray-700 pt-4">
-          <nav className="flex flex-col gap-3 mb-4">
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="mt-4 pb-2 border-t border-gray-700 pt-4">
+          <nav className="flex flex-col gap-3">
             {navigationLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -139,7 +151,7 @@ export default function Header() {
             })}
           </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 }
