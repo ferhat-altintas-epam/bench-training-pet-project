@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 
@@ -11,10 +12,15 @@ export default function WelcomePage() {
   return (
     <div className="relative min-h-screen bg-black text-white">
       <div className="relative flex justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center opacity-40"
-          style={{ backgroundImage: "url('/images/movies.jpg')" }}
-        />
+        <div className="absolute inset-0 z-0 opacity-40">
+          <Image
+            src="/images/movies.jpg"
+            alt="CineNexus background"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+        </div>
         <div className="absolute inset-0 z-5 bg-black/50" />
         <div className="absolute inset-0 z-10 opacity-40 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.5),transparent_50%),radial-gradient(circle_at_bottom,rgba(34,197,94,0.35),transparent_55%)]" />
         <div className="absolute bottom-0 left-0 right-0 z-10 h-24 bg-linear-to-b from-transparent to-black" />
