@@ -1,4 +1,4 @@
-import express from 'express1';
+import express from 'express';
 
 const app = express();
 const PORT = process.env.PORT || 3001;

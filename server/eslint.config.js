@@ -1,6 +1,8 @@
 const js = require('@eslint/js');
 const tsParser = require('@typescript-eslint/parser');
 const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const prettier = require('eslint-config-prettier');
+const globals = require('globals');
 
 module.exports = [
   {
@@ -11,6 +13,10 @@ module.exports = [
     files: ['**/*.ts'],
     languageOptions: {
       parser: tsParser,
+      globals: {
+        ...globals.node,
+        ...globals.es2021,
+      },
       parserOptions: {
         project: './tsconfig.json',
         tsconfigRootDir: __dirname,
@@ -25,9 +31,5 @@ module.exports = [
       ...tsPlugin.configs['recommended-type-checked'].rules,
     },
   },
-  {
-    rules: {
-      ...require('eslint-config-prettier'),
-    },
-  },
+  prettier,
 ];
