@@ -4,6 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import {
+  iconButtonStyles,
+  navigationLinkActiveStyles,
+  navigationLinkInactiveStyles,
+  mobileMenuLinkActiveStyles,
+  mobileMenuLinkInactiveStyles,
+} from "./Header.styles";
 
 const navigationLinks = [
   { href: "/recommended", label: "Recommended" },
@@ -38,8 +45,8 @@ export default function Header() {
                 href={link.href}
                 className={`transition-colors text-sm lg:text-base ${
                   isActive
-                    ? "text-red-500 font-medium"
-                    : "text-gray-400 hover:text-red-500"
+                    ? navigationLinkActiveStyles
+                    : navigationLinkInactiveStyles
                 }`}
               >
                 {link.label}
@@ -50,23 +57,15 @@ export default function Header() {
 
         <div className="flex items-center gap-2 md:gap-4">
           <button
-            className="md:hidden w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors"
+            className={`md:hidden ${iconButtonStyles}`}
             aria-label="Search"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
+            <Image
+              src="/icons/search.svg"
+              alt="Search"
+              width={20}
+              height={20}
+            />
           </button>
           <div className="hidden md:flex items-center gap-0">
             <input
@@ -80,23 +79,10 @@ export default function Header() {
           </div>
           <Link
             href="/login"
-            className="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition-colors"
+            className={iconButtonStyles}
             aria-label="User profile"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-              />
-            </svg>
+            <Image src="/icons/user.svg" alt="User" width={20} height={20} />
           </Link>
 
           <button
@@ -141,8 +127,8 @@ export default function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`transition-colors py-2 px-2 rounded ${
                     isActive
-                      ? "text-red-500 font-medium bg-gray-800"
-                      : "text-gray-400 hover:text-red-500 hover:bg-gray-800"
+                      ? mobileMenuLinkActiveStyles
+                      : mobileMenuLinkInactiveStyles
                   }`}
                 >
                   {link.label}
